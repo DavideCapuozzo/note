@@ -1,18 +1,21 @@
 
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-/* import AdminLayout from './components/page/page'*/
-import Page from './app/dashboard/page'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import AuthLogin from './app/page/auth/login'
+import AuthRegistration from './app/page/auth/registration'
+import AuthLayout from './components/login-component/layout'
 
 
 function App() {
   return (
-    <Router>
+    <div className='flex flex-col overflow-hidden bg-white'>
       <Routes>
-        <Route path="" element={<Page />} />
-        {/* altre route... */}
+        <Route path="/auth" element={<AuthLayout></AuthLayout>}>
+          <Route path='login' element={<AuthLogin></AuthLogin>}></Route>
+          <Route path='registration' element={<AuthRegistration></AuthRegistration>}></Route>
+        </Route>
       </Routes>
-    </Router>
+    </div>
   )
 }
 

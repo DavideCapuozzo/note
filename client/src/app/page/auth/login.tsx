@@ -1,6 +1,7 @@
 import { LoginForm } from "@/components/login-component/login-form"
 
-function Login() {
+
+function AuthLogin() {
     return(
         <>
             <LoginForm></LoginForm>
@@ -9,4 +10,4 @@ function Login() {
     
 }
 
-export default Login
+export default AuthLogin
