@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/login-component/login-form"
+import { LoginForm } from "../../../components//login-component/login-form"
 
 
 function AuthLogin() {

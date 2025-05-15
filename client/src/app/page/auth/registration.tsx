@@ -1,7 +1,9 @@
+import { RegistrationForm } from "@/components/login-component/registration-form"
+
 function AuthRegistration() {
     return(
         <>
-            <div>REGISTER</div>
+            <RegistrationForm></RegistrationForm>
         </>
     )
     
