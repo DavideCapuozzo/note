@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+/* import { useDispatch } from "react-redux"
+import { useToast } from "@/hooks/use-toast"  */
 
 
 const initialState = {
@@ -17,15 +18,30 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
 
-  const [formData, setFormData] = useState(initialState);
-  const dispatch = useDispatch();
+  const [formData, setFormData] = useState(initialState)
+  // const dispatch = useDispatch()
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target
+    setFormData(prev => ({ ...prev, [id]: value }))
+    console.log("Form Data:", formData)
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log("Form Data:", formData)
+
+    // ESEMPIO: invia a redux o chiamata API
+    // dispatch(login(formData))
+    // loginAPI(formData).then(...)
+  }
 
 
 
 
 
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -35,7 +51,14 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -47,9 +70,15 @@ export function LoginForm({
               Forgot your password?
             </a> */}
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
         </div>
-        <Button type="submit" className="w-full" /* variant="" */>
+        <Button type="submit" className="w-full" /* variant="" */ >
           Login
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
