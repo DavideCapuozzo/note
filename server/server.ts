@@ -4,8 +4,10 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
 // create a database connection'
-mongoose.connect('mongodb+srv://devsoloweb:7D88lQY9Shdz5zVl@cluster0.whmpj.mongodb.net/').then(()=>console.log('MongoDB Connected')).catch((error: unknown) => console.log(error));
-
+mongoose.connect('mongodb+srv://devsoloweb:3bkK56PRZWH3pH8v@cluster0.vx3osfa.mongodb.net/').then(()=>console.log('MongoDB Connected')).catch((error: unknown) => console.log(error));
+//devsoloweb
+//3bkK56PRZWH3pH8v
+//mongodb+srv://devsoloweb:3bkK56PRZWH3pH8v@cluster0.vx3osfa.mongodb.net/
 
 const app = express()
 const PORT = process.env.PORT || 5000;
