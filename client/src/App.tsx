@@ -8,12 +8,17 @@ import LayoutDashboard from './components/dashboard-component/layout-dashboard'
 import PageDashboard from './app/page/dashboard/dashboard'
 import NotFound from './app/page/not-found'
 import CheckAuth from './components/common/check-auth'
+//import UnauthPage from './app/page/unauth-page'
 
 
 function App() {
 
   const isAuthenticated = false;
-  const user = null
+  //const user = null
+  const user = {
+    name:'Davide',
+    role:'user'
+  }
 
   return (
     <div className='flex flex-col overflow-hidden bg-white'>
@@ -26,6 +31,7 @@ function App() {
           <Route path='dashboard' element={<PageDashboard></PageDashboard>}></Route>
         </Route>
         <Route path='*' element={<NotFound />}></Route>
+        {/* <Route path='/unauth-page' element={<UnauthPage />}></Route> */}
       </Routes>
       
     </div>

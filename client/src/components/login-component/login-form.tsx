@@ -3,11 +3,24 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+
+
+const initialState = {
+  email: '',
+  password: ''
+}
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+
+  const [formData, setFormData] = useState(initialState);
+
+
+
+
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
@@ -33,7 +46,7 @@ export function LoginForm({
           </div>
           <Input id="password" type="password" required />
         </div>
-        <Button type="submit" className="w-full" variant="login">
+        <Button type="submit" className="w-full" /* variant="" */>
           Login
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -41,7 +54,7 @@ export function LoginForm({
             Or continue with
           </span>
         </div>
-        <Button variant="loginGoogle" className="w-full">
+        <Button /* variant="loginGoogle" */ className="w-full">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533.5 544.3">
             <path d="M533.5 278.4c0-17.4-1.6-34.1-4.6-50.4H272v95.3h147.3c-6.4 34.1-25.4 62.9-54.3 82.2v68.3h87.7c51.3-47.3 80.8-117.1 80.8-195.4z" fill="currentColor" />
             <path d="M272 544.3c73.5 0 135.2-24.3 180.2-66.1l-87.7-68.3c-24.3 16.3-55.3 25.9-92.5 25.9-71 0-131.2-47.9-152.8-112.2H29v70.4c45.2 89.3 137.9 150.3 243 150.3z" fill="currentColor" />
@@ -54,7 +67,7 @@ export function LoginForm({
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <Link className="underline underline-offset-4" to='/auth/registration'>Sign up</Link> 
+        <Link className="underline underline-offset-4" to='/auth/registration'>Sign up</Link>
       </div>
     </form>
   )
