@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 
 
 const initialState = {
@@ -17,6 +18,8 @@ export function LoginForm({
 }: React.ComponentProps<"form">) {
 
   const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+
 
 
 
