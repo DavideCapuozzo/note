@@ -6,6 +6,7 @@ import AuthRegistration from './app/page/auth/registration'
 import AuthLayout from './components/login-component/layout'
 import LayoutDashboard from './components/dashboard-component/layout-dashboard'
 import PageDashboard from './app/page/dashboard/dashboard'
+import NotFound from './app/page/not-found'
 
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
         <Route path="/myuser" element={<LayoutDashboard></LayoutDashboard>}>
           <Route path='dashboard' element={<PageDashboard></PageDashboard>}></Route>
         </Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
+      
     </div>
   )
 }
