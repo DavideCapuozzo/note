@@ -2,8 +2,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "@/store/auth-slice"
 
 const initialState = {
   email: "",
@@ -18,6 +20,8 @@ export function RegistrationForm({
 }: React.ComponentProps<"form">) {
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -38,8 +42,7 @@ export function RegistrationForm({
       console.log("Registration Form Data:", formData);
     }
     
-    // ESEMPIO: chiamata API o Redux dispatch
-    // dispatch(registerUser({ email, password }))
+    dispatch(registerUser(formData)).then((data) => navigate('/auth/login'))
   };
 
   return (
