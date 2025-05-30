@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const initialState = {
   email: "",
+  userName: "",
   password: "",
   confirmPassword: "",
 };
@@ -28,14 +29,15 @@ export function RegistrationForm({
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      console.log(error)
+      const errorMessage = "Passwords do not match";
+      setError(errorMessage);
+      console.log(errorMessage); // Usa direttamente il valore invece di error
       return;
+    } else {
+      setError(""); // Resetta l'errore se le password corrispondono
+      console.log("Registration Form Data:", formData);
     }
-
-    setError("");
-    console.log("Registration Form Data:", formData);
-
+    
     // ESEMPIO: chiamata API o Redux dispatch
     // dispatch(registerUser({ email, password }))
   };
@@ -45,7 +47,7 @@ export function RegistrationForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create a new account</h1>
         <p className="text-muted-foreground text-sm text-balance">
-          Enter your email and password for create an account
+          Enter your data for create an account
         </p>
       </div>
       <div className="grid gap-6">
@@ -56,6 +58,17 @@ export function RegistrationForm({
             type="email"
             placeholder="m@example.com"
             value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="grid gap-3">
+          <Label htmlFor="userName">User Name</Label>
+          <Input
+            id="userName"
+            type="userName"
+            placeholder="Your name"
+            value={formData.userName}
             onChange={handleChange}
             required
           />
@@ -84,7 +97,7 @@ export function RegistrationForm({
             required
           />
         </div>
-        <Button type="submit" className="w-full" variant="login" >
+        <Button type="submit" className="w-full" /* variant="login"  */>
           Register
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -92,7 +105,7 @@ export function RegistrationForm({
             Or continue with
           </span>
         </div>
-        <Button variant="loginGoogle" className="w-full">
+        <Button /* variant="loginGoogle" */ className="w-full">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533.5 544.3">
             <path
               d="M533.5 278.4c0-17.4-1.6-34.1-4.6-50.4H272v95.3h147.3c-6.4 34.1-25.4 62.9-54.3 82.2v68.3h87.7c51.3-47.3 80.8-117.1 80.8-195.4z"

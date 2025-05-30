@@ -13,7 +13,7 @@ import CheckAuth from './components/common/check-auth'
 
 function App() {
 
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   //const user = null
   const user = {
     name:'Davide',
