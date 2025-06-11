@@ -2,10 +2,12 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
-/* import { useDispatch } from "react-redux"
-import { useToast } from "@/hooks/use-toast"  */
+import { useDispatch } from "react-redux"
+import { toast } from "sonner"
+import { loginUser } from "@/store/auth-slice"
+import { Navigate } from "react-router-dom"
 
 
 const initialState = {
@@ -17,6 +19,9 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialState)
   // const dispatch = useDispatch()
@@ -31,9 +36,14 @@ export function LoginForm({
     e.preventDefault()
     console.log("Form Data:", formData)
 
-    // ESEMPIO: invia a redux o chiamata API
-    // dispatch(login(formData))
-    // loginAPI(formData).then(...)
+    dispatch(loginUser(formData)).then((data) => {
+      if(data?.payload?.success){
+        toast.success(data?.payload?.message);
+        navigate('/myuser/dashboard')
+      }else{
+        toast.warning(data?.payload?.message);
+      }
+    });
   }
 
 

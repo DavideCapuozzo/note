@@ -8,17 +8,20 @@ import LayoutDashboard from './components/dashboard-component/layout-dashboard'
 import PageDashboard from './app/page/dashboard/dashboard'
 import NotFound from './app/page/not-found'
 import CheckAuth from './components/common/check-auth'
+import { useSelector } from 'react-redux'
 //import UnauthPage from './app/page/unauth-page'
 
 
 function App() {
 
-  const isAuthenticated = false;
-  //const user = null
-  const user = {
+  /* const isAuthenticated = false;  */
+  /* const user = null */
+  /* const user = {
     name:'Davide',
     role:'user'
-  }
+  } */
+
+  const {user, isAuthenticated} = useSelector(state => state.auth)
 
   return (
     <div className='flex flex-col overflow-hidden bg-white'>

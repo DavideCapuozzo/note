@@ -50,6 +50,8 @@ export function RegistrationForm({
       if(data?.payload?.success){
         toast.success(data?.payload?.message);
         navigate('/auth/login')
+      }else{
+        toast.warning(data?.payload?.message);
       }
     });
   };
