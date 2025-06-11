@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/store/auth-slice"
+import { toast } from "sonner"
 
 const initialState = {
   email: "",
@@ -21,7 +22,8 @@ export function RegistrationForm({
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -41,8 +43,15 @@ export function RegistrationForm({
       setError(""); // Resetta l'errore se le password corrispondono
       console.log("Registration Form Data:", formData);
     }
+
     
-    dispatch(registerUser(formData)).then((data) => navigate('/auth/login'))
+    
+    dispatch(registerUser(formData)).then((data) => {
+      if(data?.payload?.success){
+        toast.success(data?.payload?.message);
+        navigate('/auth/login')
+      }
+    });
   };
 
   return (
