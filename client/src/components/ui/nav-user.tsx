@@ -1,5 +1,10 @@
 "use client"
 
+import { useDispatch } from "react-redux"
+import { logoutUser } from "@/store/auth-slice"
+import type {AppDispatch} from './store/store'
+import { toast } from "sonner"
+
 import {
   BadgeCheck,
   Bell,
@@ -30,6 +35,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+
+
 export function NavUser({
   user,
 }: {
@@ -39,7 +46,20 @@ export function NavUser({
     avatar: string
   }
 }) {
+
   const { isMobile } = useSidebar()
+
+  const dispatch = useDispatch<AppDispatch>()
+
+
+  function handleLogout(){
+      dispatch(logoutUser()).then((data:any)=>{
+        toast.success(data?.payload?.message);
+      })
+      
+  }
+
+
 
   return (
     <SidebarMenu>
@@ -103,8 +123,10 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut />
-              Log out
+              <button onClick={handleLogout}>
+                <LogOut />
+                Log out
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

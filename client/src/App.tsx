@@ -8,7 +8,10 @@ import LayoutDashboard from './components/dashboard-component/layout-dashboard'
 import PageDashboard from './app/page/dashboard/dashboard'
 import NotFound from './app/page/not-found'
 import CheckAuth from './components/common/check-auth'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { checkAuth } from './store/auth-slice'
+import type {AppDispatch} from './store/store'
 //import UnauthPage from './app/page/unauth-page'
 
 
@@ -21,7 +24,16 @@ function App() {
     role:'user'
   } */
 
-  const {user, isAuthenticated} = useSelector(state => state.auth)
+  const {user, isAuthenticated, isLoading} = useSelector(state => state.auth)
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(()=>{
+    dispatch(checkAuth());
+  },[dispatch])
+
+  if (isLoading) return <div>Loading...</div>
+
+  console.log(isLoading, user);
 
   return (
     <div className='flex flex-col overflow-hidden bg-white'>

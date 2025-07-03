@@ -1,7 +1,20 @@
+import { EmptyState } from '../dashboard/emptyState'
+import { NoteEditor } from '../dashboard/noteEditor'
+
 function PageDashboard() {
+
+    const state = 1;
+
     return(
         <>
-            <h1>NOTE ADMIN</h1>
+            <div>
+                {
+                    state == null
+                        ? <EmptyState />
+                        : <NoteEditor />
+                }
+            </div>
+            
         </>
     )
 }

@@ -1,3 +1,5 @@
+import { decode } from "punycode";
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const User = require('../../models/User')
@@ -55,9 +57,9 @@ export const loginUser = async(req:any, res:any) => {
             email: checkUser.email
         }, 'CLIENT_SECRET_KEY', {expiresIn: '60m'})
 
-        res.cookie('tokek', token, {httpOnly:true, secure:false}).json({
+        res.cookie('token', token, {httpOnly:true, secure:false}).json({
             success : true, 
-            message: 'logged in Successfully',
+            message: 'Logged in Successfully',
             user:{
                 email: checkUser.email,
                 role: checkUser.role,
@@ -75,3 +77,33 @@ export const loginUser = async(req:any, res:any) => {
 }
 
 
+//logout
+
+export const logoutUser = (req:any, res:any) => {
+    res.clearCookie('token').json({
+        success : true, 
+        message: 'Logged out Successfully',
+    })
+}
+
+
+//auth middleware
+export const authMiddleware = async(req:any, res:any, next:any) => {
+    const token = req.cookies.token;
+    if(!token) return res.status(401).json({
+        success: false,
+        message: 'Unauthorised user!'
+    })
+
+    try{
+        const decoded = jwt.verify(token, 'CLIENT_SECRET_KEY');
+        req.user = decoded;
+        next()
+    }catch(error){
+        console.log(error);
+        res.status(401).json({
+            success: false,
+            message: 'Unauthorised user!'
+        })
+    }
+}
